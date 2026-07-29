@@ -28,7 +28,7 @@ class MealPlannerScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.fromLTRB(
+              padding:  EdgeInsets.fromLTRB(
                   AppSizes.screenPad, AppSizes.lg, AppSizes.screenPad, 100),
               children: [
                 // Nutrition summary
@@ -86,7 +86,7 @@ class MealPlannerScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             ClipRRect(
-                              borderRadius: const BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(AppSizes.radiusXl),
                                 topRight: Radius.circular(AppSizes.radiusXl),
                               ),
@@ -149,7 +149,7 @@ class MealPlannerScreen extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(AppSizes.cardPadMd),
+                              padding:  EdgeInsets.all(AppSizes.cardPadMd),
                               child: Column(
                                 children: [
                                   Row(

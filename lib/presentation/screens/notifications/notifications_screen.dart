@@ -92,7 +92,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
           Expanded(
             child: ListView.builder(
-              padding: const EdgeInsets.fromLTRB(
+              padding:  EdgeInsets.fromLTRB(
                   AppSizes.screenPad, AppSizes.lg, AppSizes.screenPad, 100),
               itemCount: _items.length,
               itemBuilder: (ctx, i) {
@@ -102,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   child: GestureDetector(
                     onTap: () => setState(() => n.isRead = true),
                     child: Container(
-                      padding: const EdgeInsets.all(AppSizes.cardPadMd),
+                      padding:  EdgeInsets.all(AppSizes.cardPadMd),
                       decoration: BoxDecoration(
                         color: n.isRead
                             ? (Theme.of(context).brightness == Brightness.dark

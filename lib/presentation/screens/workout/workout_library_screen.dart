@@ -71,7 +71,7 @@ class WorkoutLibraryScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               ClipRRect(
-                                borderRadius: const BorderRadius.only(
+                                borderRadius:  BorderRadius.only(
                                   topLeft: Radius.circular(AppSizes.radiusXl),
                                   topRight: Radius.circular(AppSizes.radiusXl),
                                 ),

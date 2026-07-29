@@ -172,15 +172,15 @@ class AffordableFitnessScreen extends StatelessWidget {
                                 ),
                                 Positioned.fill(
                                   child: Container(
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
+                                    decoration: BoxDecoration(
+                                      gradient: const LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
                                         colors: [Colors.transparent, Color(0xCC000000)],
                                       ),
                                       borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(AppSizes.radiusXl),
-                                        topRight: Radius.circular(AppSizes.radiusXl),
+                                        topLeft: Radius.circular(AppSizes.radiusXl.toDouble()),
+                                        topRight: Radius.circular(AppSizes.radiusXl.toDouble()),
                                       ),
                                     ),
                                   ),

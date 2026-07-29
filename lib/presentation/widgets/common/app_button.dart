@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
   final Color? color;
   final Color? textColor;
   final double? width;
-  final double height;
+  final double? height;
   final Widget? icon;
 
   const AppButton({
@@ -22,7 +22,7 @@ class AppButton extends StatelessWidget {
     this.color,
     this.textColor,
     this.width,
-    this.height = AppSizes.btnLg,
+    this.height,
     this.icon,
   });
 
@@ -30,17 +30,20 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bg = color ?? AppColors.primary;
     final fg = textColor ?? AppColors.white;
+    final buttonHeight = height ?? AppSizes.btnLg;
 
     if (isOutlined) {
       return SizedBox(
         width: width ?? double.infinity,
-        height: height.h,
+        height: buttonHeight,
         child: OutlinedButton(
           onPressed: isLoading ? null : onPressed,
           style: OutlinedButton.styleFrom(
             side: BorderSide(color: bg),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+              borderRadius: BorderRadius.circular(
+                AppSizes.radiusLg,
+              ),
             ),
           ),
           child: _child(bg),
@@ -50,7 +53,7 @@ class AppButton extends StatelessWidget {
 
     return SizedBox(
       width: width ?? double.infinity,
-      height: height.h,
+      height: buttonHeight,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
@@ -58,7 +61,9 @@ class AppButton extends StatelessWidget {
           foregroundColor: fg,
           disabledBackgroundColor: bg.withOpacity(0.5),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+            borderRadius: BorderRadius.circular(
+              AppSizes.radiusLg,
+            ),
           ),
         ),
         child: _child(fg),
@@ -71,15 +76,24 @@ class AppButton extends StatelessWidget {
       return SizedBox(
         width: 22.w,
         height: 22.h,
-        child: CircularProgressIndicator(color: fg, strokeWidth: 2.5.w),
+        child: CircularProgressIndicator(
+          color: fg,
+          strokeWidth: 2.5.w,
+        ),
       );
     }
+
     if (icon != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
-        children: [icon!, SizedBox(width: 8.w), Text(label)],
+        children: [
+          icon!,
+          SizedBox(width: 8.w),
+          Text(label),
+        ],
       );
     }
+
     return Text(label);
   }
 }

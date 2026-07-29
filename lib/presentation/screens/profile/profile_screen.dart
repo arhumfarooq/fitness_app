@@ -53,7 +53,7 @@ class ProfileScreen extends StatelessWidget {
                         BorderRadius.circular(AppSizes.radiusFull),
                     border: Border.all(color: AppColors.border20),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.workspace_premium_rounded,
@@ -262,7 +262,7 @@ class _MenuItem extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
+            padding:  EdgeInsets.symmetric(
                 horizontal: AppSizes.cardPadXl,
                 vertical: AppSizes.cardPadMd),
             child: Row(

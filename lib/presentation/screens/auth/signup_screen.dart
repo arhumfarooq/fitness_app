@@ -17,7 +17,7 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSizes.screenPad),
+          padding:  EdgeInsets.all(AppSizes.screenPad),
           child: Column(
             children: [
               const SizedBox(height: 32),
