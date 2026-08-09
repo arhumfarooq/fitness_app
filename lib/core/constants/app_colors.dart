@@ -1,49 +1,87 @@
 import 'package:flutter/material.dart';
 
+/// Semantic color tokens for Fitness AI Design Language v1.
+///
+/// New UI should prefer the semantic names at the top of this class. Legacy
+/// aliases are retained at the bottom so screens can be migrated gradually.
 class AppColors {
-  // Primary palette
-  static const primary = Color(0xFF18181B);       // zinc-900
-  static const primaryLight = Color(0xFF3F3F46);  // zinc-700
+  AppColors._();
+
+  // Core dark surfaces.
+  static const background = Color(0xFF090A0B);
+  static const surface1 = Color(0xFF111315);
+  static const surface2 = Color(0xFF17191C);
+  static const surface3 = Color(0xFF1D2023);
+
+  // Borders and dividers.
+  static const borderSubtle = Color(0xFF25292D);
+  static const borderStrong = Color(0xFF2D3136);
+  static const borderInteractive = Color(0xFF626B74);
+
+  // Content colors.
+  static const textPrimary = Color(0xFFF5F7F8);
+  static const textSecondary = Color(0xFFAAB0B7);
+  static const textMuted = Color(0xFF858C94);
+  static const textDisabled = Color(0xFF626970);
+
+  // Brand.
+  static const brandPrimary = Color(0xFFC7F36B);
+  static const onBrand = Color(0xFF10130A);
+
+  // Fitness and status semantics.
+  static const fitnessPositive = Color(0xFF73DC8C);
+  static const energyOrange = Color(0xFFFF9F43);
+  static const hydrationBlue = Color(0xFF62AEFF);
+  static const aiPurple = Color(0xFFB09AFA);
+  static const dangerRed = Color(0xFFFF7070);
+  static const warningYellow = Color(0xFFF4C95D);
+
+  // Tonal containers for compact semantic emphasis.
+  static const activityContainer = Color(0xFF202A14);
+  static const positiveContainer = Color(0xFF14291B);
+  static const energyContainer = Color(0xFF2C1D12);
+  static const hydrationContainer = Color(0xFF142232);
+  static const aiContainer = Color(0xFF211A32);
+  static const dangerContainer = Color(0xFF311718);
+  static const warningContainer = Color(0xFF2A2312);
+
+  static const overlayScrim = Color(0x99000000);
+
+  // -------------------------------------------------------------------------
+  // Legacy compatibility tokens. Keep until existing screens are migrated.
+  // -------------------------------------------------------------------------
+  static const primary = Color(0xFF18181B);
+  static const primaryLight = Color(0xFF3F3F46);
   static const white = Color(0xFFFFFFFF);
   static const black = Color(0xFF000000);
 
-  // Backgrounds
-  static const bgLight = Color(0xFFF9FAFB);       // gray-50
-  static const bgDark = Color(0xFF030712);        // gray-950
-  static const cardLight = Color(0xFFFFFFFF);
-  static const cardDark = Color(0xFF111827);      // gray-900
+  static const bgLight = Color(0xFFF9FAFB);
+  static const bgDark = background;
+  static const cardLight = white;
+  static const cardDark = surface1;
 
-  // Text
-  static const textPrimary = Color(0xFF111827);   // gray-900
-  static const textSecondary = Color(0xFF6B7280); // gray-500
-  static const textMuted = Color(0xFF9CA3AF);     // gray-400
-  static const textLight = Color(0xFFFFFFFF);
+  static const textLight = white;
   static const textDark = Color(0xFF18181B);
 
-  // Borders
-  static const borderLight = Color(0xFFE5E7EB);   // gray-200
-  static const borderDark = Color(0xFF1F2937);    // gray-800
+  static const borderLight = Color(0xFFE5E7EB);
+  static const borderDark = borderSubtle;
 
-  // Accent colors (for icons/charts/status)
-  static const orange = Color(0xFFF97316);
-  static const blue = Color(0xFF3B82F6);
-  static const purple = Color(0xFF8B5CF6);
-  static const yellow = Color(0xFFEAB308);
-  static const red = Color(0xFFEF4444);
-  static const green = Color(0xFF22C55E);
+  static const orange = energyOrange;
+  static const blue = hydrationBlue;
+  static const purple = aiPurple;
+  static const yellow = warningYellow;
+  static const red = dangerRed;
+  static const green = fitnessPositive;
   static const pink = Color(0xFFEC4899);
 
-  // Dark header gradient
-  static const headerStart = Color(0xFF18181B);   // zinc-900
-  static const headerEnd = Color(0xFF27272A);     // zinc-800
+  static const headerStart = Color(0xFF18181B);
+  static const headerEnd = Color(0xFF27272A);
 
-  // Status
-  static const success = Color(0xFF22C55E);
-  static const error = Color(0xFFEF4444);
-  static const warning = Color(0xFFF59E0B);
-  static const info = Color(0xFF3B82F6);
+  static const success = fitnessPositive;
+  static const error = dangerRed;
+  static const warning = warningYellow;
+  static const info = hydrationBlue;
 
-  // Overlays
   static const overlay10 = Color(0x1AFFFFFF);
   static const overlay20 = Color(0x33FFFFFF);
   static const border20 = Color(0x33FFFFFF);

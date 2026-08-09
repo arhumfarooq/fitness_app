@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/exports.dart';
 
 class AppButton extends StatelessWidget {
@@ -28,58 +28,57 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = color ?? AppColors.primary;
-    final fg = textColor ?? AppColors.white;
-    final buttonHeight = height ?? AppSizes.btnLg;
+    final scheme = Theme.of(context).colorScheme;
+    final buttonHeight = height ?? AppSizes.buttonHeight;
+    final effectiveOnPressed = isLoading ? null : onPressed;
 
     if (isOutlined) {
+      final foreground = textColor ?? color ?? scheme.onSurface;
+      final customStyle = color == null && textColor == null
+          ? null
+          : OutlinedButton.styleFrom(
+              foregroundColor: foreground,
+              side: BorderSide(color: color ?? scheme.outline),
+            );
+
       return SizedBox(
         width: width ?? double.infinity,
         height: buttonHeight,
         child: OutlinedButton(
-          onPressed: isLoading ? null : onPressed,
-          style: OutlinedButton.styleFrom(
-            side: BorderSide(color: bg),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                AppSizes.radiusLg,
-              ),
-            ),
-          ),
-          child: _child(bg),
+          onPressed: effectiveOnPressed,
+          style: customStyle,
+          child: _child(foreground),
         ),
       );
     }
+
+    final background = color ?? scheme.primary;
+    final foreground = textColor ?? scheme.onPrimary;
+    final customStyle = color == null && textColor == null
+        ? null
+        : ElevatedButton.styleFrom(
+            backgroundColor: background,
+            foregroundColor: foreground,
+            disabledBackgroundColor: background.withValues(alpha: 0.45),
+            disabledForegroundColor: foreground.withValues(alpha: 0.65),
+          );
 
     return SizedBox(
       width: width ?? double.infinity,
       height: buttonHeight,
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bg,
-          foregroundColor: fg,
-          disabledBackgroundColor: bg.withOpacity(0.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              AppSizes.radiusLg,
-            ),
-          ),
-        ),
-        child: _child(fg),
+        onPressed: effectiveOnPressed,
+        style: customStyle,
+        child: _child(foreground),
       ),
     );
   }
 
-  Widget _child(Color fg) {
+  Widget _child(Color foreground) {
     if (isLoading) {
-      return SizedBox(
-        width: 22.w,
-        height: 22.h,
-        child: CircularProgressIndicator(
-          color: fg,
-          strokeWidth: 2.5.w,
-        ),
+      return SizedBox.square(
+        dimension: 22,
+        child: CircularProgressIndicator(color: foreground, strokeWidth: 2.5),
       );
     }
 
@@ -88,7 +87,7 @@ class AppButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           icon!,
-          SizedBox(width: 8.w),
+          const SizedBox(width: AppSizes.space2),
           Text(label),
         ],
       );

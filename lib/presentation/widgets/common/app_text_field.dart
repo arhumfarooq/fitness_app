@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/exports.dart';
+
+import '../../theme/app_text_styles.dart';
 
 class AppTextField extends StatelessWidget {
   final String label;
@@ -32,16 +32,23 @@ class AppTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label,
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500)),
-        SizedBox(height: 8.h),
+        Text(
+          label,
+          style: AppTextStyles.label.copyWith(
+            color: theme.colorScheme.onSurface,
+          ),
+        ),
+        const SizedBox(height: 8),
         TextField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
+          style: theme.textTheme.bodyLarge,
           onTap: onTap,
           onChanged: onChanged,
           onEditingComplete: onEditingComplete,
@@ -50,7 +57,6 @@ class AppTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             errorText: errorText,
-            errorStyle: TextStyle(color: AppColors.error, fontSize: 12.sp),
           ),
         ),
       ],
