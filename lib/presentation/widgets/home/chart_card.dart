@@ -61,8 +61,8 @@ class ChartCard extends StatelessWidget {
           const SizedBox(height: AppSizes.space4),
           SizedBox(
             height: 160,
-            child: LineChart(
-              LineChartData(
+            child: BarChart(
+              BarChartData(
                 minY: 0,
                 maxY: 100,
                 gridData: FlGridData(show: false),
@@ -95,23 +95,31 @@ class ChartCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: data
-                        .asMap()
-                        .entries
-                        .map((e) => FlSpot(e.key.toDouble(), e.value))
-                        .toList(),
-                    isCurved: true,
-                    color: accentColor,
-                    barWidth: 3,
-                    dotData: const FlDotData(show: false),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      color: accentColor.withValues(alpha: 0.15),
-                    ),
-                  ),
-                ],
+                barTouchData: BarTouchData(enabled: false),
+                barGroups: data
+                    .asMap()
+                    .entries
+                    .map(
+                      (entry) => BarChartGroupData(
+                        x: entry.key,
+                        barRods: [
+                          BarChartRodData(
+                            toY: entry.value,
+                            width: 18,
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.radiusMedium,
+                            ),
+                            color: accentColor,
+                            backDrawRodData: BackgroundBarChartRodData(
+                              show: true,
+                              toY: 100,
+                              color: AppColors.surface3,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ),

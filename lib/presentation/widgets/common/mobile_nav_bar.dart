@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/exports.dart';
 import '../../../routes/app_router.dart';
+import '../../theme/app_text_styles.dart';
 
 class MobileNavBar extends StatelessWidget {
   const MobileNavBar({super.key});
 
   static const _items = [
     _NavItem(icon: Icons.home_rounded, label: 'Home', route: AppRoutes.home),
-    _NavItem(icon: Icons.fitness_center_rounded, label: 'Workouts', route: AppRoutes.workouts),
-    _NavItem(icon: Icons.chat_bubble_rounded, label: 'AI Coach', route: AppRoutes.aiCoach),
-    _NavItem(icon: Icons.trending_up_rounded, label: 'Progress', route: AppRoutes.progress),
-    _NavItem(icon: Icons.person_rounded, label: 'Profile', route: AppRoutes.profile),
+    _NavItem(
+      icon: Icons.fitness_center_rounded,
+      label: 'Workouts',
+      route: AppRoutes.workouts,
+    ),
+    _NavItem(
+      icon: Icons.chat_bubble_rounded,
+      label: 'AI Coach',
+      route: AppRoutes.aiCoach,
+    ),
+    _NavItem(
+      icon: Icons.trending_up_rounded,
+      label: 'Progress',
+      route: AppRoutes.progress,
+    ),
+    _NavItem(
+      icon: Icons.person_rounded,
+      label: 'Profile',
+      route: AppRoutes.profile,
+    ),
   ];
 
   @override
@@ -21,7 +37,7 @@ class MobileNavBar extends StatelessWidget {
     final location = GoRouterState.of(context).uri.path;
 
     return Container(
-      height: AppSizes.navHeight,
+      height: AppSizes.bottomNavHeight,
       decoration: BoxDecoration(
         color: isDark ? AppColors.cardDark : AppColors.white,
         border: Border(
@@ -31,17 +47,18 @@ class MobileNavBar extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 16,
             offset: const Offset(0, -4),
           ),
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: _items.map((item) {
           final isActive = location == item.route;
-          return _NavButton(item: item, isActive: isActive, isDark: isDark);
+          return Expanded(
+            child: _NavButton(item: item, isActive: isActive),
+          );
         }).toList(),
       ),
     );
@@ -51,51 +68,47 @@ class MobileNavBar extends StatelessWidget {
 class _NavButton extends StatelessWidget {
   final _NavItem item;
   final bool isActive;
-  final bool isDark;
 
-  const _NavButton({
-    required this.item,
-    required this.isActive,
-    required this.isDark,
-  });
+  const _NavButton({required this.item, required this.isActive});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => context.go(item.route),
-      behavior: HitTestBehavior.opaque,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: EdgeInsets.all(8.w),
-            decoration: BoxDecoration(
-              color: isActive
-                  ? (isDark ? AppColors.white : AppColors.primary)
-                  : Colors.transparent,
-              borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+    return Tooltip(
+      message: item.label,
+      child: GestureDetector(
+        onTap: () => context.go(item.route),
+        behavior: HitTestBehavior.opaque,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.all(AppSizes.space1),
+              decoration: BoxDecoration(
+                color: isActive
+                    ? AppColors.activityContainer
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
+              ),
+              child: Icon(
+                item.icon,
+                size: AppSizes.iconMd,
+                color: isActive ? AppColors.brandPrimary : AppColors.textMuted,
+              ),
             ),
-            child: Icon(
-              item.icon,
-              size: AppSizes.iconLg,
-              color: isActive
-                  ? (isDark ? AppColors.primary : AppColors.white)
-                  : (isDark ? Colors.grey[500] : Colors.grey[400]),
+            const SizedBox(height: 2),
+            Text(
+              item.label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.caption.copyWith(
+                color: isActive ? AppColors.textPrimary : AppColors.textMuted,
+                fontWeight: isActive ? FontWeight.w700 : FontWeight.w400,
+              ),
             ),
-          ),
-          SizedBox(height: 2.h),
-          Text(
-            item.label,
-            style: TextStyle(
-              fontSize: 10.sp,
-              fontWeight: isActive ? FontWeight.w700 : FontWeight.w400,
-              color: isActive
-                  ? (isDark ? AppColors.white : AppColors.primary)
-                  : (isDark ? Colors.grey[500] : Colors.grey[400]),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -105,5 +118,9 @@ class _NavItem {
   final IconData icon;
   final String label;
   final String route;
-  const _NavItem({required this.icon, required this.label, required this.route});
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    required this.route,
+  });
 }

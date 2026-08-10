@@ -76,9 +76,20 @@ class AppButton extends StatelessWidget {
 
   Widget _child(Color foreground) {
     if (isLoading) {
-      return SizedBox.square(
-        dimension: 22,
-        child: CircularProgressIndicator(color: foreground, strokeWidth: 2.5),
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox.square(
+            dimension: 18,
+            child: CircularProgressIndicator(
+              color: foreground,
+              strokeWidth: 2.5,
+            ),
+          ),
+          const SizedBox(width: AppSizes.space2),
+          Flexible(child: Text(label, overflow: TextOverflow.ellipsis)),
+        ],
       );
     }
 

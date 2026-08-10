@@ -10,6 +10,7 @@ class LargeMetricCard extends StatelessWidget {
   final double progress;
   final Color accentColor;
   final Widget? trailing;
+  final Widget? valueTrailing;
   final Widget? child;
 
   const LargeMetricCard({
@@ -21,6 +22,7 @@ class LargeMetricCard extends StatelessWidget {
     required this.progress,
     required this.accentColor,
     this.trailing,
+    this.valueTrailing,
     this.child,
   });
 
@@ -50,11 +52,18 @@ class LargeMetricCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSizes.space4),
-          Text(
-            value,
-            style: AppTextStyles.displayMetric.copyWith(
-              color: AppColors.textPrimary,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  value,
+                  style: AppTextStyles.displayMetric.copyWith(
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ),
+              if (valueTrailing != null) valueTrailing!,
+            ],
           ),
           const SizedBox(height: AppSizes.space1),
           Text(

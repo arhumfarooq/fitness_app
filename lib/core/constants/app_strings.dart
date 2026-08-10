@@ -16,7 +16,7 @@ class AppStrings {
   static const passwordHint = 'Enter your password';
   static const forgotPassword = 'Forgot Password?';
   static const signIn = 'Sign In';
-  static const signingIn = 'Signing in…';
+  static const signingIn = 'Signing In...';
   static const orContinueWith = 'Or continue with';
   static const noAccount = "Don't have an account?";
   static const signUpLink = 'Sign Up';

@@ -23,6 +23,7 @@ class CompactMetricTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(AppSizes.space4),
       decoration: BoxDecoration(
         color: AppColors.surface2,
@@ -30,6 +31,7 @@ class CompactMetricTile extends StatelessWidget {
         border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             padding: const EdgeInsets.all(AppSizes.space2),
@@ -51,21 +53,33 @@ class CompactMetricTile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSizes.space1),
-                Text(
-                  value,
-                  style: AppTextStyles.title.copyWith(
-                    color: AppColors.textPrimary,
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    value,
+                    style: AppTextStyles.title.copyWith(
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: AppSizes.space1),
                 Text(
                   detail,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.caption.copyWith(
                     color: AppColors.textMuted,
                   ),
                 ),
               ],
             ),
+          ),
+          const SizedBox(width: AppSizes.space2),
+          Icon(
+            Icons.chevron_right_rounded,
+            color: AppColors.textMuted,
+            size: AppSizes.iconMd,
           ),
         ],
       ),
