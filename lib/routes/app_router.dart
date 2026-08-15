@@ -23,10 +23,6 @@ class AppRouter {
         builder: (ctx, state) => const HomeScreen(),
       ),
       GoRoute(
-        path: AppRoutes.aiCoach,
-        builder: (ctx, state) => const AICoachScreen(),
-      ),
-      GoRoute(
         path: AppRoutes.workouts,
         builder: (ctx, state) => const WorkoutLibraryScreen(),
       ),
@@ -69,7 +65,6 @@ class AppRoutes {
   static const login = '/login';
   static const signup = '/signup';
   static const home = '/home';
-  static const aiCoach = '/ai-coach';
   static const workouts = '/workouts';
   static const exercise = '/exercise';
   static const meals = '/meals';

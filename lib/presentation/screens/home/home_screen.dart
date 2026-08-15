@@ -8,7 +8,6 @@ import '../../../data/repositories/workout_repository.dart';
 import '../../../routes/app_router.dart';
 import '../../theme/app_text_styles.dart';
 import '../../widgets/exports.dart';
-import '../../widgets/home/ai_insight_card.dart';
 import '../../widgets/home/chart_card.dart';
 import '../../widgets/home/compact_metric_tile.dart';
 import '../../widgets/home/large_metric_card.dart';
@@ -283,14 +282,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         description: AppStrings.workoutStartedSub,
                       );
                     },
-                  ),
-                  const SizedBox(height: AppSizes.space4),
-                  AiInsightCard(
-                    title: 'AI COACH',
-                    message:
-                        'Keep the pace steady and prioritize recovery after today\'s session.',
-                    actionLabel: 'Ask Coach',
-                    onPressed: () => context.push(AppRoutes.aiCoach),
                   ),
                   const SizedBox(height: AppSizes.space4),
                   ChartCard(

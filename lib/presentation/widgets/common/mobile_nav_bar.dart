@@ -15,11 +15,6 @@ class MobileNavBar extends StatelessWidget {
       route: AppRoutes.workouts,
     ),
     _NavItem(
-      icon: Icons.chat_bubble_rounded,
-      label: 'AI Coach',
-      route: AppRoutes.aiCoach,
-    ),
-    _NavItem(
       icon: Icons.trending_up_rounded,
       label: 'Progress',
       route: AppRoutes.progress,

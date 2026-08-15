@@ -6,7 +6,6 @@ export 'splash/splash_screen.dart';
 export 'auth/login_screen.dart';
 export 'auth/signup_screen.dart';
 export 'home/home_screen.dart';
-export 'ai_coach/ai_coach_screen.dart';
 export 'workout/workout_library_screen.dart';
 export 'workout/exercise_details_screen.dart';
 export 'meal_planner/meal_planner_screen.dart';

@@ -33,9 +33,6 @@ void main() {
     expect(find.text('Home'), findsOneWidget);
     expect(find.text('Workouts'), findsOneWidget);
 
-    await tester.scrollUntilVisible(find.text('AI COACH'), 300);
-    expect(find.text('AI COACH'), findsOneWidget);
-
     await tester.scrollUntilVisible(find.text('WEEKLY ACTIVITY'), 300);
     expect(find.text('WEEKLY ACTIVITY'), findsOneWidget);
 

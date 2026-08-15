@@ -30,7 +30,7 @@ class FitAIApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
         routerDelegate: AppRouter.router.routerDelegate,
         routeInformationParser: AppRouter.router.routeInformationParser,
         routeInformationProvider: AppRouter.router.routeInformationProvider,
