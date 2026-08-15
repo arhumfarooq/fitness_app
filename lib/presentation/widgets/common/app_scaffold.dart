@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 /// Safe-area and keyboard-aware foundation for migrated screens.
 class AppScaffold extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/exports.dart';
-import '../../theme/app_text_styles.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 class AppButton extends StatelessWidget {
   final String label;

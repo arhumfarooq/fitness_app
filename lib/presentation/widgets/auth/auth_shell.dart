@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 class AuthShell extends StatelessWidget {
   final Widget child;
@@ -9,6 +9,8 @@ class AuthShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final keyboardVisible = MediaQuery.viewInsetsOf(context).bottom > 0;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(color: AppColors.background),
@@ -16,6 +18,11 @@ class AuthShell extends StatelessWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               return SingleChildScrollView(
+                physics: keyboardVisible
+                    ? const ClampingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: const EdgeInsets.fromLTRB(
                   AppSizes.screenPadding,
                   AppSizes.space5,

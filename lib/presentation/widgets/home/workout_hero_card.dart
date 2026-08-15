@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/exports.dart';
-import '../../theme/app_text_styles.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
 
 class WorkoutHeroCard extends StatelessWidget {
   final String title;

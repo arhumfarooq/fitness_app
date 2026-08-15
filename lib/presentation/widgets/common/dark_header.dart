@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 /// Reusable dark zinc textured header used across all screens
 class DarkHeader extends StatelessWidget {
@@ -18,7 +18,8 @@ class DarkHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: padding ??
+      padding:
+          padding ??
           EdgeInsets.fromLTRB(
             AppSizes.screenPad,
             AppSizes.headerPadTop,
@@ -73,8 +74,11 @@ class DarkBackButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppSizes.radiusMd),
           border: Border.all(color: AppColors.border20),
         ),
-        child: Icon(Icons.arrow_back_ios_new_rounded,
-            color: Colors.white, size: AppSizes.iconMd),
+        child: Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: Colors.white,
+          size: AppSizes.iconMd,
+        ),
       ),
     );
   }

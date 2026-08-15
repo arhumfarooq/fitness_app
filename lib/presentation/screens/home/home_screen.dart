@@ -3,15 +3,11 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/exports.dart';
-import '../../../data/repositories/workout_repository.dart';
-import '../../../routes/app_router.dart';
-import '../../theme/app_text_styles.dart';
-import '../../widgets/exports.dart';
-import '../../widgets/home/chart_card.dart';
-import '../../widgets/home/compact_metric_tile.dart';
-import '../../widgets/home/large_metric_card.dart';
-import '../../widgets/home/workout_hero_card.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/data/repositories/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
+import 'package:fitness_app/presentation/widgets/exports.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -284,6 +280,53 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                   const SizedBox(height: AppSizes.space4),
+                  Text(
+                    'QUICK ACTIONS',
+                    style: AppTextStyles.label.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: AppSizes.space2),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.restaurant_rounded,
+                          label: 'Meals',
+                          color: AppColors.workoutCalories,
+                          onTap: () => context.push(AppRoutes.meals),
+                        ),
+                      ),
+                      const SizedBox(width: AppSizes.space2),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.play_circle_outline_rounded,
+                          label: 'AI Videos',
+                          color: AppColors.brandPrimary,
+                          onTap: () => context.push(AppRoutes.aiVideos),
+                        ),
+                      ),
+                      const SizedBox(width: AppSizes.space2),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.water_drop_outlined,
+                          label: 'Water',
+                          color: AppColors.hydrationBlue,
+                          onTap: () => context.push(AppRoutes.water),
+                        ),
+                      ),
+                      const SizedBox(width: AppSizes.space2),
+                      Expanded(
+                        child: _QuickAction(
+                          icon: Icons.emoji_events_outlined,
+                          label: 'Challenges',
+                          color: AppColors.activityOrange,
+                          onTap: () => context.push(AppRoutes.challenges),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppSizes.space4),
                   ChartCard(
                     title: 'WEEKLY ACTIVITY',
                     value: '7.8k avg steps',
@@ -339,6 +382,42 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class _QuickAction extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+  const _QuickAction({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+  @override
+  Widget build(BuildContext context) => InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
+    child: AppCard(
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSizes.space3,
+        horizontal: AppSizes.space2,
+      ),
+      child: Column(
+        children: [
+          Icon(icon, color: color, size: 22),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: AppTextStyles.caption,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class _ProgressSummary extends StatelessWidget {

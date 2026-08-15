@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 class PremiumBrandMark extends StatelessWidget {
   const PremiumBrandMark({super.key});

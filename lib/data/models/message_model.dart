@@ -12,10 +12,10 @@ class MessageModel {
   });
 
   static MessageModel greeting() => MessageModel(
-        id: '1',
-        text:
-            "Hi! I'm your AI Fitness Coach 💪 I'm here to help you achieve your fitness goals. What would you like to know?",
-        isAI: true,
-        timestamp: DateTime.now(),
-      );
+    id: '1',
+    text:
+        "Hi! I'm your AI Fitness Coach 💪 I'm here to help you achieve your fitness goals. What would you like to know?",
+    isAI: true,
+    timestamp: DateTime.now(),
+  );
 }

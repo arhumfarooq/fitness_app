@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../presentation/screens/viewmodels/exports.dart';
+import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 
 class AppBindings extends Bindings {
   @override

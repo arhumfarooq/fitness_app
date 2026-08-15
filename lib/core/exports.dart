@@ -1,7 +1,5 @@
 // Constants
-export 'constants/app_colors.dart';
-export 'constants/app_sizes.dart';
-export 'constants/app_strings.dart';
+export 'constants/exports.dart';
 
 // Utils
 export 'utils/validators.dart';

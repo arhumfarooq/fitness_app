@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/exports.dart';
-import '../../../routes/app_router.dart';
-import '../../theme/app_text_styles.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
 
 class MobileNavBar extends StatelessWidget {
   const MobileNavBar({super.key});

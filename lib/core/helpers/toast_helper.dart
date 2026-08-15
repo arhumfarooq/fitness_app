@@ -33,7 +33,9 @@ class ToastHelper {
         ),
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14.r),
+        ),
         margin: EdgeInsets.all(16.w),
         backgroundColor: const Color(0xFF18181B),
         action: onUndo != null
@@ -47,7 +49,11 @@ class ToastHelper {
     );
   }
 
-  static void success(BuildContext context, String message, {String? description}) {
+  static void success(
+    BuildContext context,
+    String message, {
+    String? description,
+  }) {
     show(context, '✅ $message', description: description);
   }
 
@@ -57,7 +63,9 @@ class ToastHelper {
         content: Text(message),
         backgroundColor: const Color(0xFFEF4444),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14.r)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14.r),
+        ),
         margin: EdgeInsets.all(16.w),
       ),
     );

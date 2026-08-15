@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/exports.dart';
-import '../../theme/app_text_styles.dart';
-import 'icon_action_button.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
+import 'package:fitness_app/presentation/widgets/exports.dart';
 
 enum AppHeaderType { primary, secondary }
 

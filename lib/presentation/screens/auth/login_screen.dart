@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/exports.dart';
-import '../../../routes/app_router.dart';
-import '../../theme/app_text_styles.dart';
-import '../../widgets/auth/auth_shell.dart';
-import '../../widgets/auth/premium_brand_mark.dart';
-import '../../widgets/exports.dart';
-import '../viewmodels/exports.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
+import 'package:fitness_app/presentation/widgets/exports.dart';
+import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -19,7 +18,12 @@ class LoginScreen extends StatelessWidget {
     return AuthShell(
       brand: Column(
         children: [
-          const PremiumBrandMark(),
+          Image.asset(
+            'assets/images/front_logo.png',
+            width: 240.w,
+            fit: BoxFit.contain,
+            semanticLabel: 'GYMORA AI logo',
+          ),
           const SizedBox(height: AppSizes.space4),
           Text(
             AppStrings.welcomeBack,
@@ -124,24 +128,25 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(height: AppSizes.space5),
-                _divider(context),
-                const SizedBox(height: AppSizes.space4),
-                Row(
+                const SizedBox(height: AppSizes.space5 - 9),
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: AppSizes.space1,
                   children: [
-                    Expanded(
-                      child: _SocialButton(
-                        label: 'Google',
-                        icon: Icons.g_mobiledata_rounded,
-                        onPressed: () => context.go(AppRoutes.home),
+                    Text(
+                      AppStrings.noAccount,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
                       ),
                     ),
-                    const SizedBox(width: AppSizes.space3),
-                    Expanded(
-                      child: _SocialButton(
-                        label: 'Apple',
-                        icon: Icons.apple_rounded,
-                        onPressed: () => context.go(AppRoutes.home),
+                    TextButton(
+                      onPressed: () => context.go(AppRoutes.signup),
+                      child: Text(
+                        AppStrings.signUpLink,
+                        style: AppTextStyles.label.copyWith(
+                          color: AppColors.brandPrimary,
+                        ),
                       ),
                     ),
                   ],
@@ -149,75 +154,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: AppSizes.space5),
-          Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: AppSizes.space1,
-            children: [
-              Text(
-                AppStrings.noAccount,
-                style: AppTextStyles.bodySmall.copyWith(
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              TextButton(
-                onPressed: () => context.go(AppRoutes.signup),
-                child: Text(
-                  AppStrings.signUpLink,
-                  style: AppTextStyles.label.copyWith(
-                    color: AppColors.brandPrimary,
-                  ),
-                ),
-              ),
-            ],
-          ),
         ],
-      ),
-    );
-  }
-
-  Widget _divider(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(child: Divider()),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSizes.space3),
-          child: Text(
-            AppStrings.orContinueWith,
-            style: AppTextStyles.caption.copyWith(color: AppColors.textMuted),
-          ),
-        ),
-        const Expanded(child: Divider()),
-      ],
-    );
-  }
-}
-
-class _SocialButton extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final VoidCallback onPressed;
-
-  const _SocialButton({
-    required this.label,
-    required this.icon,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon, size: AppSizes.iconMd),
-      label: Text(label, style: AppTextStyles.label),
-      style: OutlinedButton.styleFrom(
-        minimumSize: const Size(0, AppSizes.buttonHeight),
-        foregroundColor: AppColors.textPrimary,
-        side: const BorderSide(color: AppColors.borderSubtle),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppSizes.radiusLarge),
-        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 class SignUpViewModel extends GetxController {
   final nameCtrl = TextEditingController();
@@ -17,10 +17,15 @@ class SignUpViewModel extends GetxController {
       Validators.nameError(nameCtrl.text, touched: nameTouched.value);
   String? get emailError =>
       Validators.emailError(emailCtrl.text, touched: emailTouched.value);
-  String? get passwordError =>
-      Validators.passwordError(passwordCtrl.text, touched: passwordTouched.value);
+  String? get passwordError => Validators.passwordError(
+    passwordCtrl.text,
+    touched: passwordTouched.value,
+  );
   bool get canSubmit => Validators.canSubmitSignUp(
-      nameCtrl.text, emailCtrl.text, passwordCtrl.text);
+    nameCtrl.text,
+    emailCtrl.text,
+    passwordCtrl.text,
+  );
 
   void togglePassword() => showPassword.value = !showPassword.value;
   void touchName() => nameTouched.value = true;

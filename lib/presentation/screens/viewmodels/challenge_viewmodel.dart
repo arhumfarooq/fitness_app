@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../../../data/models/exports.dart';
-import '../../../data/repositories/exports.dart';
+import 'package:fitness_app/data/models/exports.dart';
+import 'package:fitness_app/data/repositories/exports.dart';
 
 class ChallengeViewModel extends GetxController {
   final active = <ChallengeModel>[].obs;
@@ -14,7 +14,8 @@ class ChallengeViewModel extends GetxController {
     available.assignAll(ChallengeRepository.getAvailableChallenges());
   }
 
-  List<AchievementModel> get achievements => ChallengeRepository.getAchievements();
+  List<AchievementModel> get achievements =>
+      ChallengeRepository.getAchievements();
 
   bool isJoined(int id) => joinedIds.contains(id);
 
@@ -25,7 +26,9 @@ class ChallengeViewModel extends GetxController {
   void logDay(int id) {
     active.value = active.map((c) {
       if (c.id == id) {
-        return c.copyWith(daysCompleted: (c.daysCompleted + 1).clamp(0, c.totalDays));
+        return c.copyWith(
+          daysCompleted: (c.daysCompleted + 1).clamp(0, c.totalDays),
+        );
       }
       return c;
     }).toList();

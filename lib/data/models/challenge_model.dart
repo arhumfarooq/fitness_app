@@ -32,18 +32,18 @@ class ChallengeModel {
   bool get isComplete => daysCompleted >= totalDays;
 
   ChallengeModel copyWith({int? daysCompleted}) => ChallengeModel(
-        id: id,
-        name: name,
-        description: description,
-        daysCompleted: daysCompleted ?? this.daysCompleted,
-        totalDays: totalDays,
-        reward: reward,
-        participants: participants,
-        icon: icon,
-        gradientColors: gradientColors,
-        difficulty: difficulty,
-        isActive: isActive,
-      );
+    id: id,
+    name: name,
+    description: description,
+    daysCompleted: daysCompleted ?? this.daysCompleted,
+    totalDays: totalDays,
+    reward: reward,
+    participants: participants,
+    icon: icon,
+    gradientColors: gradientColors,
+    difficulty: difficulty,
+    isActive: isActive,
+  );
 }
 
 class AchievementModel {

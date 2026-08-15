@@ -14,3 +14,4 @@ export 'challenges/challenges_screen.dart';
 export 'affordable_fitness/affordable_fitness_screen.dart';
 export 'notifications/notifications_screen.dart';
 export 'profile/profile_screen.dart';
+export 'fitness/fitness_feature_screens.dart';

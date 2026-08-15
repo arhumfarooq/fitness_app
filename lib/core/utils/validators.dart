@@ -19,7 +19,8 @@ class Validators {
 
   static String? passwordError(String password, {bool touched = false}) {
     if (!touched) return null;
-    if (!isValidPassword(password)) return 'Password must be at least 6 characters';
+    if (!isValidPassword(password))
+      return 'Password must be at least 6 characters';
     return null;
   }
 
@@ -34,6 +35,8 @@ class Validators {
   }
 
   static bool canSubmitSignUp(String name, String email, String password) {
-    return isValidName(name) && isValidEmail(email) && isValidPassword(password);
+    return isValidName(name) &&
+        isValidEmail(email) &&
+        isValidPassword(password);
   }
 }

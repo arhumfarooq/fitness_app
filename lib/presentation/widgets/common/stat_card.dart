@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/exports.dart';
+import 'package:fitness_app/core/exports.dart';
 
 class StatCard extends StatelessWidget {
   final String title;
@@ -62,39 +62,53 @@ class StatCard extends StatelessWidget {
                   ),
                   child: Icon(icon, color: iconColor, size: AppSizes.iconMd),
                 ),
-                Text(period,
-                    style: TextStyle(
-                        fontSize: 11.sp,
-                        color: isDark ? Colors.grey[400] : Colors.grey[500])),
+                Text(
+                  period,
+                  style: TextStyle(
+                    fontSize: 11.sp,
+                    color: isDark ? Colors.grey[400] : Colors.grey[500],
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 12.h),
-            Text(value,
-                style: TextStyle(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? Colors.white : AppColors.textPrimary)),
-            Text(subtitle,
-                style: TextStyle(
-                    fontSize: 11.sp,
-                    color: isDark ? Colors.grey[400] : Colors.grey[500])),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.w700,
+                color: isDark ? Colors.white : AppColors.textPrimary,
+              ),
+            ),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 11.sp,
+                color: isDark ? Colors.grey[400] : Colors.grey[500],
+              ),
+            ),
             SizedBox(height: 10.h),
             ClipRRect(
               borderRadius: BorderRadius.circular(4.r),
               child: LinearProgressIndicator(
                 value: progress.clamp(0.0, 1.0),
                 minHeight: 6.h,
-                backgroundColor:
-                    isDark ? Colors.grey[800] : const Color(0xFFE5E7EB),
-                valueColor:
-                    const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                backgroundColor: isDark
+                    ? Colors.grey[800]
+                    : const Color(0xFFE5E7EB),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColors.primary,
+                ),
               ),
             ),
             SizedBox(height: 4.h),
-            Text('${(progress * 100).round()}% of goal',
-                style: TextStyle(
-                    fontSize: 10.sp,
-                    color: isDark ? Colors.grey[500] : Colors.grey[500])),
+            Text(
+              '${(progress * 100).round()}% of goal',
+              style: TextStyle(
+                fontSize: 10.sp,
+                color: isDark ? Colors.grey[500] : Colors.grey[500],
+              ),
+            ),
           ],
         ),
       ),

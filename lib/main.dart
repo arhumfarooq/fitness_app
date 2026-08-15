@@ -26,7 +26,7 @@ class FitAIApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, __) => GetMaterialApp.router(
-        title: 'FitAI',
+        title: 'GYMORA AI',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,

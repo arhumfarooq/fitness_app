@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_sizes.dart';
-import 'app_text_styles.dart';
+import 'package:fitness_app/core/constants/exports.dart';
+import 'package:fitness_app/presentation/theme/foundation_exports.dart';
 
 /// Central Material theme for the GYMORA AI visual language.
 class AppTheme {

@@ -1,11 +1,11 @@
-import 'package:fitness_app/presentation/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/exports.dart';
-import '../../../routes/app_router.dart';
-import '../../widgets/exports.dart';
-import '../viewmodels/exports.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
+import 'package:fitness_app/presentation/widgets/exports.dart';
+import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -17,99 +17,116 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding:  EdgeInsets.all(AppSizes.screenPad),
+          padding: EdgeInsets.all(AppSizes.screenPad),
           child: Column(
             children: [
-              const SizedBox(height: 32),
-              Container(
-                width: 76,
-                height: 76,
-                decoration: BoxDecoration(
-                  color: AppColors.primary,
-                  borderRadius: BorderRadius.circular(AppSizes.radiusXl),
+              const SizedBox(height: 24),
+              const PremiumBrandMark(),
+              const SizedBox(height: AppSizes.space5),
+              Text(AppStrings.createAccount, style: AppTextStyles.headingLarge),
+              const SizedBox(height: AppSizes.space2),
+              Text(
+                AppStrings.createAccountSub,
+                style: AppTextStyles.bodySmall.copyWith(
+                  color: AppColors.textSecondary,
                 ),
-                child: const Icon(Icons.bolt_rounded, color: Colors.white, size: 40),
               ),
-              const SizedBox(height: 28),
-              Text(AppStrings.createAccount, style: AppTextStyles.h2),
-              const SizedBox(height: 6),
-              Text(AppStrings.createAccountSub,
-                  style: TextStyle(color: Colors.grey[500], fontSize: 14)),
-              const SizedBox(height: 32),
+              const SizedBox(height: AppSizes.space6),
 
               AppCard(
                 child: Column(
                   children: [
-                    Obx(() => AppTextField(
-                          label: AppStrings.fullName,
-                          hint: AppStrings.fullNameHint,
-                          controller: vm.nameCtrl,
-                          prefixIcon: const Icon(Icons.person_outline_rounded),
-                          errorText: vm.nameError,
-                          onChanged: (_) {},
-                          onEditingComplete: vm.touchName,
-                        )),
-                    const SizedBox(height: 16),
-                    Obx(() => AppTextField(
-                          label: AppStrings.email,
-                          hint: AppStrings.emailHint,
-                          controller: vm.emailCtrl,
-                          keyboardType: TextInputType.emailAddress,
-                          prefixIcon: const Icon(Icons.mail_outline_rounded),
-                          errorText: vm.emailError,
-                          onChanged: (_) {},
-                          onEditingComplete: vm.touchEmail,
-                        )),
-                    const SizedBox(height: 16),
-                    Obx(() => AppTextField(
-                          label: AppStrings.password,
-                          hint: AppStrings.passwordCreateHint,
-                          controller: vm.passwordCtrl,
-                          obscureText: !vm.showPassword.value,
-                          prefixIcon: const Icon(Icons.lock_outline_rounded),
-                          suffixIcon: IconButton(
-                            icon: Icon(vm.showPassword.value
+                    Obx(
+                      () => AppTextField(
+                        label: AppStrings.fullName,
+                        hint: AppStrings.fullNameHint,
+                        controller: vm.nameCtrl,
+                        prefixIcon: const Icon(Icons.person_outline_rounded),
+                        errorText: vm.nameError,
+                        onChanged: (_) {},
+                        onEditingComplete: vm.touchName,
+                      ),
+                    ),
+                    const SizedBox(height: AppSizes.space4),
+                    Obx(
+                      () => AppTextField(
+                        label: AppStrings.email,
+                        hint: AppStrings.emailHint,
+                        controller: vm.emailCtrl,
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(Icons.mail_outline_rounded),
+                        errorText: vm.emailError,
+                        onChanged: (_) {},
+                        onEditingComplete: vm.touchEmail,
+                      ),
+                    ),
+                    const SizedBox(height: AppSizes.space4),
+                    Obx(
+                      () => AppTextField(
+                        label: AppStrings.password,
+                        hint: AppStrings.passwordCreateHint,
+                        controller: vm.passwordCtrl,
+                        obscureText: !vm.showPassword.value,
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            vm.showPassword.value
                                 ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined),
-                            onPressed: vm.togglePassword,
+                                : Icons.visibility_outlined,
                           ),
-                          errorText: vm.passwordError,
-                          onChanged: (_) {},
-                          onEditingComplete: vm.touchPassword,
-                        )),
-                    const SizedBox(height: 12),
+                          onPressed: vm.togglePassword,
+                        ),
+                        errorText: vm.passwordError,
+                        onChanged: (_) {},
+                        onEditingComplete: vm.touchPassword,
+                      ),
+                    ),
+                    const SizedBox(height: AppSizes.space3),
                     Text(
                       '${AppStrings.termsText}${AppStrings.termsLink}${AppStrings.andText}${AppStrings.privacyLink}',
-                      style: TextStyle(color: Colors.grey[500], fontSize: 11),
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.textSecondary,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 16),
-                    Obx(() => AppButton(
-                          label: AppStrings.createAccount,
-                          isLoading: vm.isLoading.value,
-                          onPressed: () async {
-                            final ok = await vm.signUp();
-                            if (ok && context.mounted) {
-                              ToastHelper.success(context, 'Account created! 🎉');
-                              context.go(AppRoutes.home);
-                            }
-                          },
-                        )),
+                    Obx(
+                      () => AppButton(
+                        label: AppStrings.createAccount,
+                        isLoading: vm.isLoading.value,
+                        onPressed: () async {
+                          final ok = await vm.signUp();
+                          if (ok && context.mounted) {
+                            ToastHelper.success(context, 'Account created! 🎉');
+                            context.go(AppRoutes.personalInfo);
+                          }
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Text(AppStrings.haveAccount,
-                    style: TextStyle(color: Colors.grey[500], fontSize: 14)),
-                TextButton(
-                  onPressed: () => context.go(AppRoutes.login),
-                  child: Text(AppStrings.signInLink,
-                      style: const TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w700)),
-                ),
-              ]),
+              const SizedBox(height: AppSizes.space5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppStrings.haveAccount,
+                    style: AppTextStyles.bodySmall.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => context.go(AppRoutes.login),
+                    child: Text(
+                      AppStrings.signInLink,
+                      style: AppTextStyles.label.copyWith(
+                        color: AppColors.brandPrimary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

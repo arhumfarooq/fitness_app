@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/exports.dart';
-import '../../../routes/app_router.dart';
-import '../../widgets/exports.dart';
-import '../viewmodels/exports.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
+import 'package:fitness_app/presentation/widgets/exports.dart';
+import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -31,36 +31,50 @@ class ProfileScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: AppColors.border20, width: 3),
                   ),
-                  child: Icon(Icons.person_rounded,
-                      color: Colors.white, size: 44.sp),
+                  child: Icon(
+                    Icons.person_rounded,
+                    color: Colors.white,
+                    size: 44.sp,
+                  ),
                 ),
                 SizedBox(height: 12.h),
-                Text(user.name,
-                   style: TextStyle(
-                       color: Colors.white,
-                       fontSize: 22.sp,
-                       fontWeight: FontWeight.w700)),
+                Text(
+                  user.name,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 SizedBox(height: 4.h),
-                Text(user.email,
-                   style: TextStyle(color: Colors.grey[400], fontSize: 13.sp)),
+                Text(
+                  user.email,
+                  style: TextStyle(color: Colors.grey[400], fontSize: 13.sp),
+                ),
                 SizedBox(height: 12.h),
                 Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14.w,
+                    vertical: 6.h,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.overlay10,
-                    borderRadius:
-                        BorderRadius.circular(AppSizes.radiusFull),
+                    borderRadius: BorderRadius.circular(AppSizes.radiusFull),
                     border: Border.all(color: AppColors.border20),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.workspace_premium_rounded,
-                          color: Colors.amber, size: 16.sp),
+                      Icon(
+                        Icons.workspace_premium_rounded,
+                        color: Colors.amber,
+                        size: 16.sp,
+                      ),
                       SizedBox(width: 6.w),
-                      Text(AppStrings.premiumMember,
-                          style: TextStyle(color: Colors.white, fontSize: 13.sp)),
+                      Text(
+                        AppStrings.premiumMember,
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp),
+                      ),
                     ],
                   ),
                 ),
@@ -71,7 +85,11 @@ class ProfileScreen extends StatelessWidget {
           Expanded(
             child: ListView(
               padding: EdgeInsets.fromLTRB(
-                  AppSizes.screenPad, AppSizes.lg, AppSizes.screenPad, 100.h),
+                AppSizes.screenPad,
+                AppSizes.lg,
+                AppSizes.screenPad,
+                100.h,
+              ),
               children: [
                 AppCard(
                   child: GridView.count(
@@ -92,47 +110,56 @@ class ProfileScreen extends StatelessWidget {
                 SizedBox(height: 16.h),
 
                 AppCard(
-                  child: Obx(() => Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(8.w),
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? AppColors.borderDark
-                                  : const Color(0xFFF4F4F5),
-                              borderRadius:
-                                  BorderRadius.circular(AppSizes.radiusMd),
-                            ),
-                            child: Icon(
-                              themeVm.isDark
-                                  ? Icons.dark_mode_rounded
-                                  : Icons.light_mode_rounded,
-                              size: AppSizes.iconLg,
+                  child: Obx(
+                    () => Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(8.w),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? AppColors.borderDark
+                                : const Color(0xFFF4F4F5),
+                            borderRadius: BorderRadius.circular(
+                              AppSizes.radiusMd,
                             ),
                           ),
-                          SizedBox(width: 14.w),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(AppStrings.darkMode,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp)),
-                                Text(themeVm.isDark ? 'Enabled' : 'Disabled',
-                                    style: TextStyle(
-                                        color: Colors.grey[500],
-                                        fontSize: 12.sp)),
-                              ],
-                            ),
+                          child: Icon(
+                            themeVm.isDark
+                                ? Icons.dark_mode_rounded
+                                : Icons.light_mode_rounded,
+                            size: AppSizes.iconLg,
                           ),
-                          Switch(
-                            value: themeVm.isDark,
-                            onChanged: (_) => themeVm.toggleTheme(),
-                            activeColor: AppColors.primary,
+                        ),
+                        SizedBox(width: 14.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppStrings.darkMode,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                              Text(
+                                themeVm.isDark ? 'Enabled' : 'Disabled',
+                                style: TextStyle(
+                                  color: Colors.grey[500],
+                                  fontSize: 12.sp,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      )),
+                        ),
+                        Switch(
+                          value: themeVm.isDark,
+                          onChanged: (_) => themeVm.toggleTheme(),
+                          activeColor: AppColors.primary,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16.h),
 
@@ -141,38 +168,42 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       _MenuItem(
-                          icon: Icons.settings_rounded,
-                          label: AppStrings.accountSettings,
-                          onTap: () {}),
+                        icon: Icons.settings_rounded,
+                        label: AppStrings.accountSettings,
+                        onTap: () {},
+                      ),
                       _MenuItem(
-                          icon: Icons.notifications_rounded,
-                          label: AppStrings.notifications,
-                          onTap: () =>
-                              context.push(AppRoutes.notifications)),
+                        icon: Icons.notifications_rounded,
+                        label: AppStrings.notifications,
+                        onTap: () => context.push(AppRoutes.notifications),
+                      ),
                       _MenuItem(
-                          icon: Icons.workspace_premium_rounded,
-                          label: AppStrings.subscription,
-                          badge: AppStrings.premium,
-                          iconColor: Colors.amber,
-                          onTap: () {}),
+                        icon: Icons.workspace_premium_rounded,
+                        label: AppStrings.subscription,
+                        badge: AppStrings.premium,
+                        iconColor: Colors.amber,
+                        onTap: () {},
+                      ),
                       _MenuItem(
-                          icon: Icons.shield_rounded,
-                          label: AppStrings.privacySecurity,
-                          onTap: () {}),
+                        icon: Icons.shield_rounded,
+                        label: AppStrings.privacySecurity,
+                        onTap: () {},
+                      ),
                       _MenuItem(
-                          icon: Icons.help_rounded,
-                          label: AppStrings.helpSupport,
-                          onTap: () {},
-                          showDivider: false),
+                        icon: Icons.help_rounded,
+                        label: AppStrings.helpSupport,
+                        onTap: () {},
+                        showDivider: false,
+                      ),
                     ],
                   ),
                 ),
                 SizedBox(height: 16.h),
 
                 Text(
-                 'Member since ${user.joinDate}',
-                 textAlign: TextAlign.center,
-                 style: TextStyle(color: Colors.grey[500], fontSize: 12.sp),
+                  'Member since ${user.joinDate}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.grey[500], fontSize: 12.sp),
                 ),
                 SizedBox(height: 16.h),
 
@@ -187,13 +218,20 @@ class ProfileScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.logout_rounded, color: AppColors.error, size: 20.sp),
+                        Icon(
+                          Icons.logout_rounded,
+                          color: AppColors.error,
+                          size: 20.sp,
+                        ),
                         SizedBox(width: 10.w),
-                        Text(AppStrings.logOut,
-                            style: TextStyle(
-                                color: AppColors.error,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.sp)),
+                        Text(
+                          AppStrings.logOut,
+                          style: TextStyle(
+                            color: AppColors.error,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -219,19 +257,21 @@ class _ProfileStat extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color:
-            isDark ? const Color(0xFF1F2937) : const Color(0xFFF9FAFB),
+        color: isDark ? const Color(0xFF1F2937) : const Color(0xFFF9FAFB),
         borderRadius: BorderRadius.circular(AppSizes.radiusLg),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(label,
-              style: TextStyle(color: Colors.grey[500], fontSize: 11.sp)),
+          Text(
+            label,
+            style: TextStyle(color: Colors.grey[500], fontSize: 11.sp),
+          ),
           SizedBox(height: 4.h),
-          Text(value,
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, fontSize: 15.sp)),
+          Text(
+            value,
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15.sp),
+          ),
         ],
       ),
     );
@@ -262,34 +302,51 @@ class _MenuItem extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Padding(
-            padding:  EdgeInsets.symmetric(
-                horizontal: AppSizes.cardPadXl,
-                vertical: AppSizes.cardPadMd),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSizes.cardPadXl,
+              vertical: AppSizes.cardPadMd,
+            ),
             child: Row(
               children: [
-                Icon(icon,
-                    size: AppSizes.iconMd,
-                    color: iconColor ?? Colors.grey),
+                Icon(
+                  icon,
+                  size: AppSizes.iconMd,
+                  color: iconColor ?? Colors.grey,
+                ),
                 SizedBox(width: 14.w),
                 Expanded(
-                   child: Text(label,
-                       style: TextStyle(
-                           fontWeight: FontWeight.w500, fontSize: 15.sp))),
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15.sp,
+                    ),
+                  ),
+                ),
                 if (badge != null)
                   Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: 8.w, vertical: 3.h),
+                      horizontal: 8.w,
+                      vertical: 3.h,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFEF9C3),
                       borderRadius: BorderRadius.circular(6),
                     ),
-                    child: Text(badge!,
-                        style: TextStyle(
-                            color: const Color(0xFFCA8A04), fontSize: 11.sp)),
+                    child: Text(
+                      badge!,
+                      style: TextStyle(
+                        color: const Color(0xFFCA8A04),
+                        fontSize: 11.sp,
+                      ),
+                    ),
                   ),
                 SizedBox(width: 8.w),
-                Icon(Icons.chevron_right_rounded,
-                    color: Colors.grey[400], size: AppSizes.iconMd),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  color: Colors.grey[400],
+                  size: AppSizes.iconMd,
+                ),
               ],
             ),
           ),

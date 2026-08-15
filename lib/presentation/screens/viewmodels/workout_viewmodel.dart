@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import '../../../data/models/exports.dart';
-import '../../../data/repositories/exports.dart';
+import 'package:fitness_app/data/models/exports.dart';
+import 'package:fitness_app/data/repositories/exports.dart';
 
 class WorkoutLibraryViewModel extends GetxController {
   final _all = WorkoutRepository.getCategories();
@@ -9,9 +9,10 @@ class WorkoutLibraryViewModel extends GetxController {
   List<WorkoutCategory> get filtered => query.value.isEmpty
       ? _all
       : _all
-          .where((c) =>
-              c.name.toLowerCase().contains(query.value.toLowerCase()))
-          .toList();
+            .where(
+              (c) => c.name.toLowerCase().contains(query.value.toLowerCase()),
+            )
+            .toList();
 
   void search(String q) => query.value = q;
 }

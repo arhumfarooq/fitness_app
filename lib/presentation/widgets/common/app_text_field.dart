@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_text_styles.dart';
+import 'package:fitness_app/presentation/theme/exports.dart';
 
 class AppTextField extends StatelessWidget {
   final String label;

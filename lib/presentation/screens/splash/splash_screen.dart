@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/exports.dart';
-import '../../../routes/app_router.dart';
-import '../../theme/app_text_styles.dart';
-import '../../widgets/exports.dart';
+import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/routes/app_router.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future<void>.delayed(const Duration(milliseconds: 1800), () {
+      if (mounted) context.go(AppRoutes.login);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -38,27 +50,12 @@ class SplashScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: AppSizes.screenPadding,
-                  right: AppSizes.screenPadding,
+                  left: 0,
+                  right: 0,
                   bottom: AppSizes.majorSectionSpacing,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Train smarter. Live stronger.',
-                        textAlign: TextAlign.center,
-                        style: AppTextStyles.bodySmall.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                      ),
-                      const SizedBox(height: AppSizes.space4),
-                      AppButton(
-                        label: AppStrings.getStarted,
-                        color: AppColors.brandPrimary,
-                        textColor: AppColors.onBrand,
-                        onPressed: () => context.go(AppRoutes.login),
-                      ),
-                    ],
+                  child: const SpinKitChasingDots(
+                    color: Colors.white,
+                    size: 22,
                   ),
                 ),
               ],
