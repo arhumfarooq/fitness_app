@@ -28,7 +28,7 @@ void main() {
     );
     await tester.pump();
 
-    expect(find.text('TODAY\'S PROGRESS'), findsOneWidget);
+    expect(find.text('TODAY\'S SUMMARY'), findsOneWidget);
     expect(find.text("TODAY'S WORKOUT"), findsOneWidget);
     expect(find.text('Home'), findsOneWidget);
     expect(find.text('Workouts'), findsOneWidget);

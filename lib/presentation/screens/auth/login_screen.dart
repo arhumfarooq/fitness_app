@@ -20,11 +20,11 @@ class LoginScreen extends StatelessWidget {
         children: [
           Image.asset(
             'assets/images/front_logo.png',
-            width: 240.w,
+            width: 180.w,
             fit: BoxFit.contain,
             semanticLabel: 'GYMORA AI logo',
           ),
-          const SizedBox(height: AppSizes.space4),
+          const SizedBox(height: AppSizes.space4+13),
           Text(
             AppStrings.welcomeBack,
             style: AppTextStyles.headingLarge.copyWith(
@@ -128,7 +128,11 @@ class LoginScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                const SizedBox(height: AppSizes.space5 - 9),
+              
+              ],
+            ),
+          ),
+            const SizedBox(height: AppSizes.space5 - 9),
                 Wrap(
                   alignment: WrapAlignment.center,
                   crossAxisAlignment: WrapCrossAlignment.center,
@@ -151,9 +155,6 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
         ],
       ),
     );
