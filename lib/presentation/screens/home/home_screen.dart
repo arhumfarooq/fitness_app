@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   _sectionTitle("TODAY'S SUMMARY"),
                   const SizedBox(height: AppSizes.space2),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
                         child: _SummaryCard(
@@ -147,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   _sectionTitle('HEALTH & RECOVERY'),
                   const SizedBox(height: AppSizes.space2),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Expanded(
                         child: _HealthCard(
@@ -280,11 +278,16 @@ class _SummaryCard extends StatelessWidget {
         FittedBox(
           alignment: Alignment.centerLeft,
           fit: BoxFit.scaleDown,
-          child: Text(value, style: AppTextStyles.title.copyWith(color: AppColors.textPrimary)),
+          child: Text(
+            value,
+            style: AppTextStyles.title.copyWith(color: AppColors.textPrimary),
+          ),
         ),
         Text(
           '/ $goal',
-          style: AppTextStyles.caption.copyWith(color:color?? AppColors.textMuted),
+          style: AppTextStyles.caption.copyWith(
+            color: color ?? AppColors.textMuted,
+          ),
         ),
         const SizedBox(height: 7),
         ClipRRect(
@@ -458,7 +461,10 @@ class _Legend extends StatelessWidget {
         decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       ),
       const SizedBox(width: 4),
-      Text(label, style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary)),
+      Text(
+        label,
+        style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary),
+      ),
     ],
   );
 }
