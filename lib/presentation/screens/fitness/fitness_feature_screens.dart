@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:fitness_app/core/exports.dart';
@@ -400,7 +401,7 @@ class StepsScreen extends StatelessWidget {
         ('Calories', '320 kcal', AppColors.workoutCalories),
         ('Active time', '1h 25m', AppColors.activityOrange),
       ]),
-      const _ChartPlaceholder(title: 'Hourly Activity'),
+      const _ActivityBars(),
       SectionHeader(title: 'Activity History'),
       const _ListTile(
         title: 'Morning Walk',
@@ -845,11 +846,26 @@ class _CircleMetric extends StatelessWidget {
           SizedBox(
             width: 180,
             height: 180,
-            child: CircularProgressIndicator(
-              value: progress.clamp(0, 1),
-              strokeWidth: 12,
-              color: color,
-              backgroundColor: AppColors.surface3,
+            child: PieChart(
+              PieChartData(
+                sectionsSpace: 0,
+                centerSpaceRadius: 70,
+                startDegreeOffset: -90,
+                sections: [
+                  PieChartSectionData(
+                    value: progress.clamp(0, 1) * 100,
+                    color: color,
+                    radius: 12,
+                    showTitle: false,
+                  ),
+                  PieChartSectionData(
+                    value: (1 - progress.clamp(0, 1)) * 100,
+                    color: AppColors.surface3,
+                    radius: 12,
+                    showTitle: false,
+                  ),
+                ],
+              ),
             ),
           ),
           Column(
@@ -873,10 +889,10 @@ class _CircleMetric extends StatelessWidget {
 Widget _statGrid(List<(String, String, Color)> items) => GridView.count(
   shrinkWrap: true,
   physics: const NeverScrollableScrollPhysics(),
-  crossAxisCount: items.length > 3 ? 2 : 3,
+  crossAxisCount: 2,
   crossAxisSpacing: 10,
   mainAxisSpacing: 10,
-  childAspectRatio: 1.5,
+  childAspectRatio: 2.15,
   children: items
       .map(
         (x) => AppCard(
@@ -917,6 +933,76 @@ class _ChartPlaceholder extends StatelessWidget {
       ],
     ),
   );
+}
+
+class _ActivityBars extends StatelessWidget {
+  const _ActivityBars();
+  @override
+  Widget build(BuildContext context) {
+    return AppCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Hourly Activity', style: AppTextStyles.title),
+          const SizedBox(height: AppSizes.space4),
+          SizedBox(
+            height: 140,
+            child: BarChart(
+              BarChartData(
+                maxY: 80,
+                minY: 0,
+                alignment: BarChartAlignment.spaceAround,
+                gridData: const FlGridData(show: false),
+                borderData: FlBorderData(show: false),
+                titlesData: const FlTitlesData(show: false),
+                barGroups: List.generate(
+                  12,
+                  (i) => BarChartGroupData(
+                    x: i,
+                    barRods: [
+                      BarChartRodData(
+                        toY: const [
+                          18,
+                          34,
+                          26,
+                          48,
+                          30,
+                          68,
+                          54,
+                          32,
+                          44,
+                          25,
+                          58,
+                          38,
+                        ][i].toDouble(),
+                        width: 7,
+                        color: AppColors.hydrationBlue,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSizes.space2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: ['12 AM', '6 AM', '12 PM', '6 PM', '12 AM']
+                .map(
+                  (x) => Text(
+                    x,
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _ListTile extends StatelessWidget {

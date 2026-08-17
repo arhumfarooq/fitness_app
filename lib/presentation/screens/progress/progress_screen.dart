@@ -1,522 +1,381 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
 import 'package:fitness_app/core/exports.dart';
+import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 import 'package:fitness_app/presentation/theme/exports.dart';
 import 'package:fitness_app/presentation/widgets/exports.dart';
-import 'package:fitness_app/presentation/screens/viewmodels/exports.dart';
 
 class ProgressScreen extends StatelessWidget {
   const ProgressScreen({super.key});
-
-  static const _tabs = ['Weight', 'Workouts', 'Body'];
+  static const _tabs = ['Weight', 'Workouts', 'Body Stats'];
 
   @override
   Widget build(BuildContext context) {
     final vm = Get.find<ProgressViewModel>();
-
     return Scaffold(
-      body: Column(
-        children: [
-          DarkHeader(
-            child: Row(
-              children: [
-                const DarkBackButton(),
-                const SizedBox(width: 14),
-                Text(
-                  AppStrings.yourProgress,
-                  style: AppTextStyles.h3.copyWith(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-
-          Expanded(
-            child: ListView(
-              padding: EdgeInsets.fromLTRB(
-                AppSizes.screenPad,
-                AppSizes.lg,
-                AppSizes.screenPad,
-                100,
+      appBar: AppBar(title: const Text('Progress')),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSizes.screenPadding,
+                AppSizes.space2,
+                AppSizes.screenPadding,
+                AppSizes.space3,
               ),
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(AppSizes.cardPadLg),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [AppColors.headerStart, Color(0xFF3F3F46)],
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            AppSizes.radiusXl,
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.trending_down_rounded,
-                                  color: Colors.white,
-                                  size: AppSizes.iconMd,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'Weight Lost',
-                                  style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              '2.5 kg',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            Text(
-                              'In 6 weeks',
-                              style: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.all(AppSizes.cardPadLg),
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFF6D28D9), Color(0xFF7C3AED)],
-                          ),
-                          borderRadius: BorderRadius.circular(
-                            AppSizes.radiusXl,
-                          ),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_rounded,
-                                  color: Colors.white,
-                                  size: AppSizes.iconMd,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  'Workout Days',
-                                  style: TextStyle(
-                                    color: Colors.purple[200],
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Text(
-                              '42',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            Text(
-                              'This month',
-                              style: TextStyle(
-                                color: Colors.purple[200],
-                                fontSize: 11,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+              child: Obx(
+                () => _SegmentedTabs(
+                  labels: _tabs,
+                  selected: vm.tabIndex.value,
+                  onChanged: vm.setTab,
                 ),
-                const SizedBox(height: 20),
-
-                Obx(
-                  () => Container(
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? AppColors.cardDark
-                          : AppColors.white,
-                      borderRadius: BorderRadius.circular(AppSizes.radiusLg),
-                      border: Border.all(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.borderDark
-                            : AppColors.borderLight,
-                      ),
-                    ),
-                    child: Row(
-                      children: _tabs.asMap().entries.map((e) {
-                        final isActive = e.key == vm.tabIndex.value;
-                        return Expanded(
-                          child: GestureDetector(
-                            onTap: () => vm.setTab(e.key),
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              margin: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: isActive
-                                    ? AppColors.primary
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(
-                                  AppSizes.radiusMd,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  e.value,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600,
-                                    color: isActive
-                                        ? Colors.white
-                                        : Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-
-                Obx(() {
-                  if (vm.tabIndex.value == 0) return _WeightTab(vm: vm);
-                  if (vm.tabIndex.value == 1) return _WorkoutTab(vm: vm);
-                  return const _BodyTab();
-                }),
-              ],
+              ),
             ),
-          ),
-          const MobileNavBar(),
-        ],
+            Expanded(
+              child: Obx(() {
+                final content = vm.tabIndex.value == 0
+                    ? const _WeightProgressContent()
+                    : vm.tabIndex.value == 1
+                    ? _WorkoutProgressContent(vm: vm)
+                    : const _BodySummaryContent();
+                return ListView(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSizes.screenPadding,
+                    0,
+                    AppSizes.screenPadding,
+                    100,
+                  ),
+                  children: [content],
+                );
+              }),
+            ),
+          ],
+        ),
       ),
+      bottomNavigationBar: const SafeArea(top: false, child: MobileNavBar()),
     );
   }
 }
 
-class _WeightTab extends StatelessWidget {
-  final ProgressViewModel vm;
-  const _WeightTab({required this.vm});
+class _SegmentedTabs extends StatelessWidget {
+  final List<String> labels;
+  final int selected;
+  final ValueChanged<int> onChanged;
+  const _SegmentedTabs({
+    required this.labels,
+    required this.selected,
+    required this.onChanged,
+  });
 
   @override
-  Widget build(BuildContext context) {
-    final spots = vm.weightData
-        .asMap()
-        .entries
-        .map((e) => FlSpot(e.key.toDouble(), (e.value['weight'] as double)))
-        .toList();
-
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppStrings.weightTracking, style: AppTextStyles.h4),
-          Text(
-            AppStrings.last6Weeks,
-            style: TextStyle(color: Colors.grey[500], fontSize: 12),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 200,
-            child: LineChart(
-              LineChartData(
-                gridData: const FlGridData(show: false),
-                borderData: FlBorderData(show: false),
-                minY: 80,
-                maxY: 86,
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (v, m) => Text(
-                        vm.weightData[v.toInt()]['week'].toString(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      interval: 1,
-                    ),
-                  ),
-                  leftTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  topTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
+  Widget build(BuildContext context) => Container(
+    padding: const EdgeInsets.all(4),
+    decoration: BoxDecoration(
+      color: AppColors.surface3,
+      borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+    ),
+    child: Row(
+      children: List.generate(
+        labels.length,
+        (i) => Expanded(
+          child: GestureDetector(
+            onTap: () => onChanged(i),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 180),
+              padding: const EdgeInsets.symmetric(vertical: 9),
+              decoration: BoxDecoration(
+                color: selected == i
+                    ? AppColors.brandPrimary
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+              ),
+              child: Text(
+                labels[i],
+                textAlign: TextAlign.center,
+                style: AppTextStyles.caption.copyWith(
+                  color: selected == i
+                      ? AppColors.onBrand
+                      : AppColors.textSecondary,
+                  fontWeight: FontWeight.w600,
                 ),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: true,
-                    color: AppColors.primary,
-                    barWidth: 3,
-                    dotData: const FlDotData(show: true),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      color: AppColors.primary.withOpacity(0.1),
-                    ),
-                  ),
-                ],
               ),
             ),
           ),
-          const Divider(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _StatsItem('Current', '82.5 kg'),
-              _StatsItem('Goal', '75 kg'),
-              _StatsItem('To Go', '7.5 kg', highlight: true),
-            ],
-          ),
-        ],
+        ),
       ),
-    );
-  }
-}
-
-class _WorkoutTab extends StatelessWidget {
-  final ProgressViewModel vm;
-  const _WorkoutTab({required this.vm});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppStrings.weeklyActivity, style: AppTextStyles.h4),
-          Text(
-            'Total: 315 minutes',
-            style: TextStyle(color: Colors.grey[500], fontSize: 12),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 200,
-            child: BarChart(
-              BarChartData(
-                gridData: const FlGridData(show: false),
-                borderData: FlBorderData(show: false),
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (v, m) => Text(
-                        vm.workoutData[v.toInt()]['day'].toString(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      interval: 1,
-                    ),
-                  ),
-                  leftTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  topTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                ),
-                barGroups: vm.workoutData.asMap().entries.map((e) {
-                  return BarChartGroupData(
-                    x: e.key,
-                    barRods: [
-                      BarChartRodData(
-                        toY: (e.value['minutes'] as int).toDouble(),
-                        color: AppColors.primary,
-                        width: 18,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                    ],
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          const Divider(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _StatsItem('This Week', '7 days'),
-              _StatsItem('This Month', '26 days'),
-              _StatsItem('Streak', '12 days', highlight: true),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BodyTab extends StatelessWidget {
-  const _BodyTab();
-
-  @override
-  Widget build(BuildContext context) {
-    return AppCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(AppStrings.bodyMeasurements, style: AppTextStyles.h4),
-          Text(
-            'Track your transformation',
-            style: TextStyle(color: Colors.grey[500], fontSize: 12),
-          ),
-          const SizedBox(height: 16),
-          _BodyMetric('BMI', '24.8', 0.65, 'Normal', AppColors.primary),
-          const SizedBox(height: 12),
-          _BodyMetric('Body Fat', '18.5%', 0.70, 'Good', AppColors.blue),
-          const SizedBox(height: 12),
-          _BodyMetric('Muscle Mass', '68 kg', 0.82, '+2kg', AppColors.purple),
-          const SizedBox(height: 16),
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 2.5,
-            children: [
-              _MeasureChip('Chest', '98 cm'),
-              _MeasureChip('Waist', '82 cm'),
-              _MeasureChip('Arms', '35 cm'),
-              _MeasureChip('Thighs', '58 cm'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _BodyMetric extends StatelessWidget {
-  final String label;
-  final String value;
-  final double progress;
-  final String tag;
-  final Color color;
-  const _BodyMetric(
-    this.label,
-    this.value,
-    this.progress,
-    this.tag,
-    this.color,
+    ),
   );
+}
 
+class _WeightProgressContent extends StatelessWidget {
+  const _WeightProgressContent();
   @override
   Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 14)),
-          Text(
-            value,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-          ),
-        ],
+      AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Weight Progress', style: AppTextStyles.title),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface3,
+                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+                  ),
+                  child: Text('80% of goal', style: AppTextStyles.caption),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSizes.space3),
+            SizedBox(height: 220, child: LineChart(_weightChartData())),
+            const SizedBox(height: AppSizes.space3),
+            const _RangeSelector(),
+          ],
+        ),
       ),
-      const SizedBox(height: 6),
-      Row(
+      const SizedBox(height: AppSizes.space5),
+      Text(
+        'BODY SUMMARY',
+        style: AppTextStyles.label.copyWith(color: AppColors.textPrimary),
+      ),
+      const SizedBox(height: AppSizes.space2),
+      const Row(
         children: [
           Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: progress,
-                minHeight: 6,
-                backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation(color),
-              ),
-            ),
+            child: _BodyCard(label: 'Weight', value: '75.6 kg'),
           ),
-          const SizedBox(width: 8),
-          Text(tag, style: TextStyle(fontSize: 11, color: color)),
+          SizedBox(width: 10),
+          Expanded(
+            child: _BodyCard(label: 'Body Fat', value: '18.2%'),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: _BodyCard(label: 'Muscle Mass', value: '56.1 kg'),
+          ),
         ],
       ),
+     
     ],
   );
 }
 
-class _MeasureChip extends StatelessWidget {
-  final String label;
-  final String value;
-  const _MeasureChip(this.label, this.value);
-
-  @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    decoration: BoxDecoration(
-      color: Theme.of(context).brightness == Brightness.dark
-          ? const Color(0xFF1F2937)
-          : const Color(0xFFF9FAFB),
-      borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+LineChartData _weightChartData() {
+  const historical = [
+    FlSpot(0, 120),
+    FlSpot(1, 122),
+    FlSpot(2, 124),
+    FlSpot(3, 123),
+    FlSpot(4, 130),
+    FlSpot(5, 127),
+    FlSpot(6, 125),
+    FlSpot(7, 128),
+    FlSpot(8, 127),
+    FlSpot(9, 131),
+  ];
+  const projected = [FlSpot(9, 131), FlSpot(9.5, 128), FlSpot(10, 136)];
+  return LineChartData(
+    minX: 0,
+    maxX: 10,
+    minY: 118,
+    maxY: 140,
+    gridData: FlGridData(
+      show: true,
+      drawVerticalLine: false,
+      horizontalInterval: 5,
+      getDrawingHorizontalLine: (_) => FlLine(
+        color: AppColors.borderSubtle,
+        strokeWidth: 1,
+        dashArray: [4, 4],
+      ),
     ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(label, style: TextStyle(color: Colors.grey[500], fontSize: 10)),
-        Text(
-          value,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+    borderData: FlBorderData(show: false),
+    titlesData: FlTitlesData(
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 28,
+          interval: 5,
+          getTitlesWidget: (v, _) => Text(
+            v.toInt().toString(),
+            style: AppTextStyles.caption.copyWith(color: AppColors.textMuted),
+          ),
         ),
+      ),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          interval: 2,
+          getTitlesWidget: (v, _) {
+            const months = ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'];
+            final i = (v / 2).round().clamp(0, 5);
+            return Text(
+              months[i],
+              style: AppTextStyles.caption.copyWith(color: AppColors.textMuted),
+            );
+          },
+        ),
+      ),
+      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+    ),
+    lineBarsData: [
+      LineChartBarData(
+        spots: historical,
+        isCurved: true,
+        color: AppColors.fitnessPositive,
+        barWidth: 3,
+        dotData: const FlDotData(show: false),
+        belowBarData: BarAreaData(show: true, color: Color(0x183EBB78)),
+      ),
+      LineChartBarData(
+        spots: projected,
+        isCurved: true,
+        color: AppColors.textPrimary,
+        barWidth: 3,
+        dotData: const FlDotData(show: false),
+      ),
+    ],
+    extraLinesData: ExtraLinesData(
+      verticalLines: [
+        VerticalLine(x: 9, color: AppColors.fitnessPositive, strokeWidth: 1),
       ],
     ),
   );
 }
 
-class _StatsItem extends StatelessWidget {
-  final String label;
-  final String value;
-  final bool highlight;
-  const _StatsItem(this.label, this.value, {this.highlight = false});
-
+class _RangeSelector extends StatelessWidget {
+  const _RangeSelector();
   @override
-  Widget build(BuildContext context) => Column(
-    children: [
-      Text(label, style: TextStyle(color: Colors.grey[500], fontSize: 11)),
-      const SizedBox(height: 2),
-      Text(
-        value,
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-          color: highlight ? AppColors.primary : null,
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: AppColors.surface3,
+        borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: ['90D', '6M', '1Y', 'ALL']
+            .map(
+              (x) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 7,
+                ),
+                decoration: BoxDecoration(
+                  color: x == '6M' ? AppColors.surface1 : Colors.transparent,
+                  borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+                ),
+                child: Text(
+                  x,
+                  style: AppTextStyles.caption.copyWith(
+                    color: x == '6M'
+                        ? AppColors.textPrimary
+                        : AppColors.textSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+class _BodyCard extends StatelessWidget {
+  final String label, value;
+  const _BodyCard({required this.label, required this.value});
+  @override
+  Widget build(BuildContext context) => AppCard(
+    padding:  EdgeInsets.symmetric(vertical: 12, horizontal: 15.w),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: 
+          
+AppTextStyles.caption.copyWith(
+  color: AppColors.textPrimary,
+  fontSize: 10.sp,
+)        ),
+         SizedBox(height: 5.h),
+        Text(value, style: AppTextStyles.title),
+      ],
+    ),
+  );
+}
+
+class _Badge extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  const _Badge({required this.icon, required this.label});
+  @override
+  Widget build(BuildContext context) => AppCard(
+    child: Column(
+      children: [
+        Icon(icon, color: AppColors.activityOrange, size: 28),
+        const SizedBox(height: 6),
+        Text(label, textAlign: TextAlign.center, style: AppTextStyles.caption),
+      ],
+    ),
+  );
+}
+
+class _WorkoutProgressContent extends StatelessWidget {
+  final ProgressViewModel vm;
+  const _WorkoutProgressContent({required this.vm});
+  @override
+  Widget build(BuildContext context) {
+    final groups = vm.workoutData
+        .asMap()
+        .entries
+        .map(
+          (e) => BarChartGroupData(
+            x: e.key,
+            barRods: [
+              BarChartRodData(
+                toY: (e.value['minutes'] as int).toDouble(),
+                color: AppColors.brandPrimary,
+                width: 18,
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ],
+          ),
+        )
+        .toList();
+    return AppCard(
+      child: SizedBox(
+        height: 250,
+        child: BarChart(
+          BarChartData(
+            maxY: 70,
+            borderData: FlBorderData(show: false),
+            gridData: const FlGridData(show: false),
+            titlesData: const FlTitlesData(show: false),
+            barGroups: groups,
+          ),
         ),
       ),
-    ],
-  );
+    );
+  }
+}
+
+class _BodySummaryContent extends StatelessWidget {
+  const _BodySummaryContent();
+  @override
+  Widget build(BuildContext context) => const _WeightProgressContent();
 }

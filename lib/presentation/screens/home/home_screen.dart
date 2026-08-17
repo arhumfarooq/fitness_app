@@ -51,13 +51,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: _SummaryCard(
-                          icon: Icons.directions_walk_rounded,
-                          title: 'Steps',
-                          value: _format(_steps),
-                          goal: '10,000',
-                          color: AppColors.fitnessPositive,
-                          progress: _steps / 10000,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.radiusLarge,
+                          ),
+                          onTap: () => context.push(AppRoutes.steps),
+                          child: _SummaryCard(
+                            icon: Icons.directions_walk_rounded,
+                            title: 'Steps',
+                            value: _format(_steps),
+                            goal: '10,000',
+                            color: AppColors.fitnessPositive,
+                            progress: _steps / 10000,
+                          ),
                         ),
                       ),
                       const SizedBox(width: AppSizes.space2),
@@ -269,12 +275,12 @@ class _SummaryCard extends StatelessWidget {
           ),
           child: Icon(icon, color: color, size: 16),
         ),
-        const SizedBox(height: 6),
+         SizedBox(height: 6),
         Text(
           title,
           style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary),
         ),
-        const SizedBox(height: 2),
+         SizedBox(height: 2),
         FittedBox(
           alignment: Alignment.centerLeft,
           fit: BoxFit.scaleDown,
@@ -285,9 +291,7 @@ class _SummaryCard extends StatelessWidget {
         ),
         Text(
           '/ $goal',
-          style: AppTextStyles.caption.copyWith(
-            color: color ?? AppColors.textMuted,
-          ),
+          style: AppTextStyles.caption.copyWith(color: AppColors.textMuted),
         ),
         const SizedBox(height: 7),
         ClipRRect(
